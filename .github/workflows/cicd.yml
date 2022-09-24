@@ -20,4 +20,4 @@ jobs:
             docker compose up -d --build
           else
             echo "Error: ${DIR} not found. Can not continue."
-          fi%                      
+          fi                     
