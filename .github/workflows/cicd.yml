@@ -16,8 +16,6 @@ jobs:
         script: |
           DIR="/root/app/api-temp-k8"
           if [ -d "$DIR" ]; then
-            ### Take action if $DIR exists ###
-            cd $DIR
             git pull -f
             docker compose up -d --build
           else
