@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  nodedb
+  namespace: default
+  labels:
+    app:  nodedb
+spec:
+  selector:
+    matchLabels:
+      app: nodedb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  nodedb
+    spec:
+      containers:
+      - name:  mysqlcontainer
+        image:  mysql:8.0
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name:  MYSQL_ROOT_PASSWORD
+          value: lamoded
+        - name:  MYSQL_DATABASE
+          value: patientsdb
+        - name: MYSQL_USER
+          value: admin
+        - name: MYSQL_PASSWORD
+          value: lamoded
+        - name: SERVICE_TAGS
+          value: "prod"
+        - name: SERVICE_NAME
+          value: "nodedb"
+        - name: DB_PORT
+          value: "3306"
+        
+        ports:
+        - containerPort: 3306

@@ -1,3 +1,4 @@
+version: '3'
 services:
   mysqldb:
     image: mysql:8.0
@@ -18,8 +19,8 @@ services:
       MYSQL_ROOT_PASSWORD: lamoded
       SERVICE_TAGS: prod
       SERVICE_NAME: mysqldb
-    networks:
-      - api-dockernet
+    labels:
+      kompose.service.type: nodeport
 
   nodeapp:
     container_name: nodeappcontainer
@@ -43,9 +44,5 @@ services:
       DB_CONNECTION_LIMIT: 20
     depends_on:
       - mysqldb
-    networks:
-      - api-dockernet
-
-networks:
-  api-dockernet:
-    driver: bridge
+    labels:
+      kompose.service.type: nodeport
