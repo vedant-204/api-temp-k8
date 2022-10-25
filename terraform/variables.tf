@@ -1,6 +1,6 @@
 variable digitalocean_token {
     type = string
-    default = "dop_v1_1b8f5566b98a70802d64459fd165be691891bf90cc44a08a93541d3945dd8ffb"
+    default = "dop_v1_6b0a98ad97aaf1656663993d754d0921ece669c2a5a7be318d7356fa7291a09b"
 }
 
 variable cluster_name {
