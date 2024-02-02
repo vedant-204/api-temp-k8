@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql
+    restart: unless-stopped
+    env_file: ./ .dockerenv
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
+  app:
+    depends_on:
+      - mysqldb
+    image: vedant2040/back-api
+    restart: unless-stopped
+    env_file: ./ .dockerenv
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+
+
