@@ -6,8 +6,10 @@ services:
     restart: unless-stopped
     env_file: ./ .dockerenv
     environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_DATABASE=
+      - MYSQLDB_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQLDB_DATABASE=$MYSQL_DATABASE
+    volumes:
+      - db:/var/lib/mysql
   app:
     depends_on:
       - mysqldb
@@ -17,7 +19,17 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    environment:
+      - DB_HOST=mysqldb
+      - DB_PORT=$MYSQL_DATABASE
+      - DB_USER=$MYSQL_USER
+      - DB_PASSWORD=$MYSQL_PASSWORD
+      - DB_NAME=$MYSQL_NAME
+      - DB_CONNECTION_LIMIT=$MYSQL_CONNECTION_LIMIT
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+
+volumes:
+  db:
 
 
